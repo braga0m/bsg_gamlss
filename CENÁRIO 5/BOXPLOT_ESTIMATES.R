@@ -1,0 +1,199 @@
+#
+library(stringr)
+
+rm(list=ls())
+
+#
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
+getwd()
+
+
+data40 <- read.table("Estimates_Scenario_10_n40.txt", h=T)
+data80 <- read.table("Estimates_Scenario_10_n80.txt", h=T)
+data160 <- read.table("Estimates_Scenario_10_n160.txt", h=T)
+data320 <- read.table("Estimates_Scenario_10_n320.txt", h=T)
+
+#################################################################################
+#----------------------------------MLE estimates--------------------------------#
+#################################################################################
+#40
+MLE_beta1_n40 <- data40$MLE_beta1  
+MLE_beta2_n40 <- data40$MLE_beta2
+MLE_beta3_n40 <- data40$MLE_beta3  
+MLE_gama1_n40 <- data40$MLE_gama1  
+MLE_gama2_n40 <- data40$MLE_gama2  
+MLE_gama3_n40 <- data40$MLE_gama3  
+MLE_lambda1_n40 <- data40$MLE_lambda1
+MLE_lambda2_n40 <- data40$MLE_lambda2
+
+
+#80
+MLE_beta1_n80 <- data80$MLE_beta1  
+MLE_beta2_n80 <- data80$MLE_beta2
+MLE_beta3_n80 <- data80$MLE_beta3  
+MLE_gama1_n80 <- data80$MLE_gama1  
+MLE_gama2_n80 <- data80$MLE_gama2  
+MLE_gama3_n80 <- data80$MLE_gama3  
+MLE_lambda1_n80 <- data80$MLE_lambda1
+MLE_lambda2_n80 <- data80$MLE_lambda2
+
+
+#160
+MLE_beta1_n160 <- data160$MLE_beta1  
+MLE_beta2_n160 <- data160$MLE_beta2
+MLE_beta3_n160 <- data160$MLE_beta3  
+MLE_gama1_n160 <- data160$MLE_gama1  
+MLE_gama2_n160 <- data160$MLE_gama2  
+MLE_gama3_n160 <- data160$MLE_gama3  
+MLE_lambda1_n160 <- data160$MLE_lambda1
+MLE_lambda2_n160 <- data160$MLE_lambda2
+
+
+#320
+MLE_beta1_n320 <- data320$MLE_beta1  
+MLE_beta2_n320 <- data320$MLE_beta2
+MLE_beta3_n320 <- data320$MLE_beta3  
+MLE_gama1_n320 <- data320$MLE_gama1  
+MLE_gama2_n320 <- data320$MLE_gama2  
+MLE_gama3_n320 <- data320$MLE_gama3  
+MLE_lambda1_n320 <- data320$MLE_lambda1
+MLE_lambda2_n320 <- data320$MLE_lambda2
+
+#
+beta1 <- c(MLE_beta1_n40, MLE_beta1_n80, MLE_beta1_n160, MLE_beta1_n320)
+beta2 <- c(MLE_beta2_n40, MLE_beta2_n80, MLE_beta2_n160, MLE_beta2_n320)
+beta3 <- c(MLE_beta3_n40, MLE_beta3_n80, MLE_beta3_n160, MLE_beta3_n320)
+gama1 <- c(MLE_gama1_n40, MLE_gama1_n80, MLE_gama1_n160, MLE_gama1_n320)
+gama2 <- c(MLE_gama2_n40, MLE_gama2_n80, MLE_gama2_n160, MLE_gama2_n320)
+gama3 <- c(MLE_gama3_n40, MLE_gama3_n80, MLE_gama3_n160, MLE_gama3_n320)
+lambda1 <- c(MLE_lambda1_n40, MLE_lambda1_n80, MLE_lambda1_n160, MLE_lambda1_n320)
+lambda2 <- c(MLE_lambda2_n40, MLE_lambda2_n80, MLE_lambda2_n160, MLE_lambda2_n320)
+
+
+
+#################################################################################
+#----------------------------------MLE estimates--------------------------------#
+#################################################################################
+
+
+
+#-------------------------MLE estimates of beta1---------------------------#
+png(filename = str_c("boxplot_beta_1", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_beta1_n40,
+        MLE_beta1_n80,
+        MLE_beta1_n160,
+        MLE_beta1_n320,
+        main=expression(paste("EMV para ", beta[1])),
+        xlab="Tamanho amostral",ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(beta1), 
+               max(beta1)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h=1.8,lty=3,lwd=2, col = "red")
+dev.off()
+
+
+
+
+#-------------------------MLE estimates of beta2--------------------#
+png(filename = str_c("boxplot_beta_2", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_beta2_n40,
+        MLE_beta2_n80,
+        MLE_beta2_n160,
+        MLE_beta2_n320,
+        main=expression(paste("EMV para ", beta[2])),
+        xlab="Tamanho amostral", ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(beta2), 
+               max(beta2)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = -2,lty=2,lwd=2, col = "red")
+dev.off()
+
+#-------------------------MLE estimates of beta3--------------------#
+png(filename = str_c("boxplot_beta_3", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_beta3_n40,
+        MLE_beta3_n80,
+        MLE_beta3_n160,
+        MLE_beta3_n320,
+        main=expression(paste("EMV para ", beta[3])),
+        xlab="Tamanho amostral",ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(beta3), 
+               max(beta3)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = 1,lty=2,lwd=2, col = "red")
+dev.off()
+
+
+#----------------------------MLE estimates of gamma1---------------------------#
+png(filename = str_c("boxplot_gama_1", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_gama1_n40,
+        MLE_gama1_n80,
+        MLE_gama1_n160,
+        MLE_gama1_n320,
+        main=expression(paste("EMV para ", gamma[1])),
+        xlab="Tamanho amostral",ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(gama1),
+               max(gama1)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = -1.2,lty=2,lwd=2, col = "red")
+dev.off()
+
+#----------------------------MLE estimates of gamma2---------------------------#
+png(filename = str_c("boxplot_gama_2", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_gama2_n40,
+        MLE_gama2_n80,
+        MLE_gama2_n160,
+        MLE_gama2_n320,
+        main=expression(paste("EMV para ", gamma[2])),
+        xlab="Tamanho amostral",ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(gama2),
+               max(gama2)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = 1.3,lty=2,lwd=2, col = "red")
+dev.off()
+
+
+#----------------------------MLE estimates of gamma3---------------------------#
+png(filename = str_c("boxplot_gama_3", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_gama3_n40,
+        MLE_gama3_n80,
+        MLE_gama3_n160,
+        MLE_gama3_n320,
+        main=expression(paste("EMV para ", gamma[3])),
+        xlab="Tamanho amostral", ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(gama3),
+               max(gama3)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = 1.4,lty=2,lwd=2, col = "red")
+dev.off()
+
+
+
+#----------------------------MLE estimates of lambda1---------------------------#
+png(filename = str_c("boxplot_lambda_1", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_lambda1_n40,
+        MLE_lambda1_n80,
+        MLE_lambda1_n160,
+        MLE_lambda1_n320,
+        main=expression(paste("EMV para ", lambda[1])),
+        xlab="Tamanho amostral",ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(lambda1),
+               max(lambda1)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = -1.2,lty=2,lwd=2, col = "red")
+dev.off()
+
+#----------------------------MLE estimates of lambda2---------------------------#
+png(filename = str_c("boxplot_lambda_2", "_scenario_",str_sub(getwd(), -4, -1), ".png"))
+boxplot(MLE_lambda2_n40,
+        MLE_lambda2_n80,
+        MLE_lambda2_n160,
+        MLE_lambda2_n320,
+        main=expression(paste("EMV para ", lambda[2])),
+        xlab="Tamanho amostral", ylab="",names=c(40,80,160,320),outline=T,
+        ylim=c(min(lambda2),
+               max(lambda2)), 
+        cex=1.5,cex.lab=2.0,cex.axis=1.5,cex.main=2.0, pch=16, col = NULL)
+abline(h = 1.3,lty=2,lwd=2, col = "red")
+dev.off()
+
+
